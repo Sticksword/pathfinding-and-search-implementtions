@@ -18,13 +18,12 @@ class PriorityQueue:
     return heapq.heappop(self.elements)[1]
 
 
-class Graph:
+class MazeGraph:
   def __init__(self):
     self.maze = [] # matrix of all nodes
     self.start = None # start coordinates
     self.dest = None # destination coordinates
 
-  def setup_maze(self):
     with open('input1.txt', 'r') as fp:
       final_dest = ()
       line_num = 0
@@ -45,6 +44,8 @@ class Graph:
 
     if self.start is None or self.dest is None:
       raise ValueError('Input map either has no start or no destination.')
+
+    self.setup_nodes()
 
   def setup_nodes(self):
     num_rows = len(self.maze)
@@ -143,10 +144,10 @@ class Node (object):
 
   def __repr__(self):
     return '(%d, %d) ' % (self.row, self.col)
-  # The default implementation is useless (it’s hard to think of one which wouldn’t be, but yeah)
+  # The default implementation is useless (it's hard to think of one which wouldn't be, but yeah)
   # __repr__ goal is to be unambiguous
   # __str__ goal is to be readable
-  # Container’s __str__ uses contained objects’ __repr__
+  # Container's __str__ uses contained objects' __repr__
   # Hence here, we use __repr__ since each Node will be in a container when printed
 
   def __eq__(self, other):
@@ -164,7 +165,5 @@ class Node (object):
 
 
 if __name__ == '__main__':
-  maze_graph = Graph()
-  maze_graph.setup_maze()
-  maze_graph.setup_nodes()
+  maze_graph = MazeGraph()
   maze_graph.a_star()
